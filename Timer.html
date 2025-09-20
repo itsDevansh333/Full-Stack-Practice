@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>clock</title>
+    <style>
+        .container{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* background-color: aqua; */
+            height: 100vh;
+            flex-direction: column;
+        }
+        .Clock{
+            font-size: 10vh;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .container .Buttons{
+            display: flex;
+            width: 50vw;
+            /* background-color: blue; */
+            justify-content: center; 
+        }
+        .container .Buttons .btn{
+            width: 10vw;
+            height: 5vh;
+            border-radius: 10px;
+            background-color: rgb(142, 142, 142);
+            color: aliceblue;
+            font-size: 20px;
+        }
+        
+    </style>
+</head>
+<body>  
+    <div class="container">
+        <h1 class="Clock">
+            <span id="Hour">00:</span>
+            <span id="Minute">00:</span>
+            <span id="Second">00</span>
+        </h1>
+        <div class="Buttons">
+            <button id="start_btn" class="btn" style="margin-right: 5px;" onclick="Start()">start</button>
+            <button id="end_btn" class="btn" style="margin-left: 5px;" onclick="Reset()">Reset</button>
+        </div>
+    </div>
+
+
+    <!------------JS-------------->
+    <script>
+        const end=document.getElementById("end_btn")
+        end.style.display="none";
+        var ref;
+        function Pause1(){
+            console.log("pause")
+            clearInterval(ref)
+            const startbtn=document.getElementById("start_btn");
+            startbtn.onclick=function(){Start()}
+            startbtn.innerHTML="Resume";
+        }
+        function Reset(){
+            var sec=document.getElementById("Second");
+            var min=document.getElementById("Minute");
+            var hour=document.getElementById("Hour");
+            sec.innerHTML="00";
+            min.innerHTML="00:";
+            hour.innerHTML="00:";  
+            end.style.display="none";
+            const startbtn=document.getElementById("start_btn");
+            startbtn.innerHTML="Start";
+
+        }
+        var h=0;
+        var m=0;
+        var s=0;
+        function Start(){
+            
+            end.style.display="block"
+            
+            //stop watch working
+
+
+            ref=setInterval(function(){
+                var sec=document.getElementById("Second");
+                sec.innerHTML=String(s).padStart(2,'0');
+                var min=document.getElementById("Minute")
+                min.innerHTML=String(m).padStart(2,'0')+":";
+                s++;
+                if(s==60){
+                    s=0;
+                    m++;
+                    if(m==60){
+                        m=0;
+                        h++;
+                    }
+                }
+            },1000);
+
+            const startbtn=document.getElementById("start_btn");
+            startbtn.onclick=function(){Pause1();}
+            startbtn.innerHTML="Pause";
+            // startbtn.onclick=function(){Start()}
+
+        }
+
+    </script>
+</body>
+</html>
