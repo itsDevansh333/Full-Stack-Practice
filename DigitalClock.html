@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digtal Clock</title>
+    
+    <style>
+
+        body{
+            padding: 0;
+            margin: 0;
+            /* background-size: 100vw 100vh; */
+        }
+        .container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container .Time{
+            color: white;
+            font-size: 20vh;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <span class="Time"></span>
+    </div>
+
+    <script>
+        const Body=document.querySelector("body")
+        const getTime=()=>{
+            var l="";
+            const d=new Date();
+            var h=d.getHours();
+            if(h>=12){
+                l="PM";
+            }
+            else{
+                l="AM";
+            }
+            if(h>=18){
+                Body.style.background="url('Images/Night.jpg')";
+                Body.style.backgroundSize="100vw 100vh";
+            }
+            else{
+                Body.style.background="url('Images/Day.jpg')"
+                Body.style.backgroundSize="100vw 100vh";
+                document.querySelector(".Time").style.color="Black";
+
+            }
+
+            h=h%12;
+            h=String(h).padStart(2,'0')
+            var m=d.getMinutes();
+            m=String(m).padStart(2,'0')
+            var s=d.getSeconds();
+            s=String(s).padStart(2,'0')
+            
+            var time=`${h}:${m}:${s} ${l}`;
+            return time;
+        }
+        setInterval(()=>{
+            document.querySelector(".Time").innerHTML=getTime();
+
+        },1000);
+    </script>
+</body>
+</html>
